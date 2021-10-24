@@ -58,7 +58,9 @@ do
 done
 echo "  mongo-router-01:" >> docker-compose.yml
 echo "    image: mongo" >> docker-compose.yml
-echo "    command: mongos --port 27017 --configdb mongo-configserver/${cfgurl} --keyFile /mongodb.key" >> docker-compose.yml
+echo "    command: mongos --port 27017 --bind_ip 0.0.0.0 --configdb mongo-configserver/${cfgurl} --keyFile /mongodb.key" >> docker-compose.yml
+echo "    ports:" >> docker-compose.yml
+echo "      - 27017:27017" >>docker-compose.yml
 echo "    volumes:" >> docker-compose.yml
 echo "        - ./mongodb.key:/mongodb.key" >> docker-compose.yml
 echo "        - ./mongo-sharding.init.js:/mongo-sharding.init.js" >> docker-compose.yml
