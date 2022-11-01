@@ -23,7 +23,7 @@ n=0
 for copy in ${copies[@]}
 do
   echo "  mongo-configserver-${copy}:" >> docker-compose.yml
-  echo "    image: mongo" >> docker-compose.yml
+  echo "    image: mongo:4.4" >> docker-compose.yml
   echo "    command: mongod --auth --port 27017 --configsvr --replSet mongo-configserver --dbpath /data/db --keyFile /mongodb.key" >> docker-compose.yml
   echo "    volumes:" >> docker-compose.yml
   echo "        - ./mongodb.key:/mongodb.key" >> docker-compose.yml
@@ -48,7 +48,7 @@ do
   for copy in ${copies[@]}
   do
     echo "  mongo-shard-${shard}${copy}:" >> docker-compose.yml
-    echo "    image: mongo" >> docker-compose.yml
+    echo "    image: mongo:4.4" >> docker-compose.yml
     echo "    command: mongod --auth --port ${shardn} --shardsvr --replSet mongo-shard-${shard} --dbpath /data/db  --keyFile /mongodb.key" >> docker-compose.yml
     echo "    volumes:" >> docker-compose.yml
     echo "        - ./mongodb.key:/mongodb.key" >> docker-compose.yml
@@ -57,7 +57,7 @@ do
   done
 done
 echo "  mongo-router-01:" >> docker-compose.yml
-echo "    image: mongo" >> docker-compose.yml
+echo "    image: mongo:4.4" >> docker-compose.yml
 echo "    command: mongos --port 27017 --bind_ip 0.0.0.0 --configdb mongo-configserver/${cfgurl} --keyFile /mongodb.key" >> docker-compose.yml
 echo "    ports:" >> docker-compose.yml
 echo "      - 27017:27017" >>docker-compose.yml
